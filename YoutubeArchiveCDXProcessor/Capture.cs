@@ -15,7 +15,7 @@ namespace YoutubeArchiveCDXProcessor
         public string Urlkey { get; set; }
         [Indexed]
         public string VideoId { get; set; }
-        public string Timestamp { get; set; }
+        public Int64 Timestamp { get; set; }
         [Indexed]
         public string Original { get; set; }
         public string Mimetype { get; set; }

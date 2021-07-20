@@ -11,21 +11,22 @@ namespace YoutubeArchiveCDXProcessor
         static void Main(string[] args)
         {
 
-            ParseData();
+            ParseData(args[0]);
 
         }
 
         static Regex videoIdRegex = new Regex("v(=|/)([A-Za-z0-9_-]{11})");
 
-        static void ParseData()
+        static void ParseData(string inputfile)
         {
 
-            string[] lines = File.ReadAllLines("cdx@url=youtube.com%2Fwatch%2A&output=json.json");
+            //string[] lines = File.ReadAllLines("cdx@url=youtube.com%2Fwatch%2A&output=json.json");
+            string[] lines = File.ReadAllLines(inputfile);
 
 
 
 
-            var db = new SQLiteConnection("data.db");
+            var db = new SQLiteConnection(inputfile+".data.db");
             db.CreateTable<Capture>();
 
             db.BeginTransaction();
@@ -80,8 +81,10 @@ namespace YoutubeArchiveCDXProcessor
 
 
                 int statuscode=0, length=0;
+                Int64 timestamp = 0;
                 int.TryParse(parts[4], out statuscode);
                 int.TryParse(parts[6], out length);
+                Int64.TryParse(parts[1], out timestamp);
 
 
                 // Get Video ID
@@ -95,7 +98,7 @@ namespace YoutubeArchiveCDXProcessor
 
                 Capture cap = new Capture() {
                     Urlkey = parts[0],
-                    Timestamp = parts[1],
+                    Timestamp = timestamp,
                     Original = parts[2],
                     Mimetype = parts[3],
                     Statuscode = statuscode,
