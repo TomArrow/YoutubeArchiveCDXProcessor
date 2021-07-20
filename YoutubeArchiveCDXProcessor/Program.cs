@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace YoutubeArchiveCDXProcessor
 {
@@ -13,6 +14,8 @@ namespace YoutubeArchiveCDXProcessor
             ParseData();
 
         }
+
+        static Regex videoIdRegex = new Regex("v(=|/)([A-Za-z0-9_-]{11})");
 
         static void ParseData()
         {
@@ -73,26 +76,42 @@ namespace YoutubeArchiveCDXProcessor
 
                 }
 
+
+
+
                 int statuscode=0, length=0;
                 int.TryParse(parts[4], out statuscode);
                 int.TryParse(parts[6], out length);
 
-                Capture cap = new Capture() { 
+
+                // Get Video ID
+                string videoId = "";
+                Match videoIdMatch = videoIdRegex.Match(parts[2]);
+                
+                if(videoIdMatch.Length > 0 && videoIdMatch.Groups.Count == 3)
+                {
+                    videoId = videoIdMatch.Groups[2].Value;
+                }
+
+                Capture cap = new Capture() {
                     Urlkey = parts[0],
                     Timestamp = parts[1],
                     Original = parts[2],
                     Mimetype = parts[3],
                     Statuscode = statuscode,
                     Digest = parts[5],
-                    Length = length//,
+                    Length = length,
+                    VideoId = videoId//,
                     //Dupecount = int.Parse(parts[7])
                 };
+
+
 
                 db.Insert(cap);
 
                 Console.WriteLine(String.Join("     ,    ",parts));
-                /*
-                if (i > 100)
+                
+                /*if (i > 100)
                 {
                     break;
                 }*/
