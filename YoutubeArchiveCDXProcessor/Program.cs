@@ -78,14 +78,16 @@ namespace YoutubeArchiveCDXProcessor
 
             db.BeginTransaction();
 
-            try
+            List<int> errors = new List<int>();
+
+            // i=1 bc ignore first line
+            for (int i = 1; i < lines.Length; i++)
             {
-                // i=1 bc ignore first line
-                for (int i = 1; i < lines.Length; i++)
+                string line = lines[i];
+
+
+                try
                 {
-                    string line = lines[i];
-
-
                     string[] parts = splitLine(line);
 
 
@@ -146,10 +148,17 @@ namespace YoutubeArchiveCDXProcessor
                         break;
                     }*/
                 }
+                catch
+                {
+                    Console.WriteLine("ERROR at line " + i + ". Presumably file ended abruptly/didn't download completely.");
+                    errors.Add(i);
+                }
             }
-            catch
+            Console.WriteLine();
+            if (errors.Count > 0)
             {
-                Console.WriteLine("ERROR. Presumably file ended abruptly/didn't download completely.");
+
+                Console.WriteLine("Lines that errors were found at: " + String.Join(",", errors.ToArray()));
             }
             db.Commit();
             db.Close();
@@ -167,14 +176,15 @@ namespace YoutubeArchiveCDXProcessor
 
             db.BeginTransaction();
 
-            try
+
+            List<int> errors = new List<int>();
+            // i=1 bc ignore first line
+            for (int i = 1; i < lines.Length; i++)
             {
-                // i=1 bc ignore first line
-                for (int i = 1; i < lines.Length; i++)
+                string line = lines[i];
+
+                try
                 {
-                    string line = lines[i];
-
-
                     string[] parts = splitLine(line);
 
 
@@ -222,7 +232,7 @@ namespace YoutubeArchiveCDXProcessor
                         Mimetype = parts[1],
                         Essence = essence,//,
                         EssenceType = essenceTypeString//,
-                                                       //Dupecount = int.Parse(parts[7])
+                                                        //Dupecount = int.Parse(parts[7])
                     };
 
 
@@ -231,15 +241,24 @@ namespace YoutubeArchiveCDXProcessor
 
                     Console.WriteLine(String.Join("     ,    ", parts));
 
-                    /*if (i > 100)
-                    {
-                        break;
-                    }*/
+
                 }
+                catch(Exception e)
+                {
+                    Console.WriteLine("ERROR at line "+i+". Presumably file ended abruptly/didn't download completely.");
+                    errors.Add(i);
+                }
+
+                /*if (i > 100)
+                {
+                    break;
+                }*/
             }
-            catch
+            Console.WriteLine();
+            if(errors.Count > 0)
             {
-                Console.WriteLine("ERROR. Presumably file ended abruptly/didn't download completely.");
+
+                Console.WriteLine("Lines that errors were found at: "+String.Join(",",errors.ToArray()));
             }
             db.Commit();
             db.Close();
