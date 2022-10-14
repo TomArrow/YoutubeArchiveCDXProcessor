@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YoutubeArchiveCDXProcessor", "YoutubeArchiveCDXProcessor\YoutubeArchiveCDXProcessor.csproj", "{D04511DB-7A57-476C-AB3E-6A96173BD3F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoutubeHTMLLinkExtractor", "YoutubeHTMLLinkExtractor\YoutubeHTMLLinkExtractor.csproj", "{2B0876FB-05C0-4815-9223-A6DC7BFCE5B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,14 @@ Global
 		{D04511DB-7A57-476C-AB3E-6A96173BD3F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D04511DB-7A57-476C-AB3E-6A96173BD3F7}.Release|x64.ActiveCfg = Release|x64
 		{D04511DB-7A57-476C-AB3E-6A96173BD3F7}.Release|x64.Build.0 = Release|x64
+		{2B0876FB-05C0-4815-9223-A6DC7BFCE5B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B0876FB-05C0-4815-9223-A6DC7BFCE5B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B0876FB-05C0-4815-9223-A6DC7BFCE5B9}.Debug|x64.ActiveCfg = Debug|x64
+		{2B0876FB-05C0-4815-9223-A6DC7BFCE5B9}.Debug|x64.Build.0 = Debug|x64
+		{2B0876FB-05C0-4815-9223-A6DC7BFCE5B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B0876FB-05C0-4815-9223-A6DC7BFCE5B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B0876FB-05C0-4815-9223-A6DC7BFCE5B9}.Release|x64.ActiveCfg = Release|Any CPU
+		{2B0876FB-05C0-4815-9223-A6DC7BFCE5B9}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
